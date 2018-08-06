@@ -28,7 +28,7 @@ class DeckList extends React.Component {
         <Ionicons 
           name='ios-add'
           size={30}
-          onPress={() => navigation.navigate('DeckDetails')}/>
+          onPress={() => navigation.navigate('EditDeck')}/>
       </TouchableOpacity>
     )
   })

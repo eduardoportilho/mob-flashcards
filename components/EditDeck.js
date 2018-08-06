@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 
-class DeckDetails extends React.Component {
+class EditDeck extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const editedDeck = navigation.getParam('deck')
     return {
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default DeckDetails
+export default EditDeck
