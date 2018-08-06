@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import EditDeck from './components/EditDeck'
 import Deck from './components/Deck'
+import Quiz from './components/Quiz'
 
 
 const RootStack = createStackNavigator({
@@ -15,6 +16,9 @@ const RootStack = createStackNavigator({
   },
   Deck: {
     screen: Deck,
+  },
+  Quiz: {
+    screen: Quiz,
   },
 })
 

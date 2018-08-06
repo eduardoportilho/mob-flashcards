@@ -6,7 +6,16 @@ const decks = [
   {
     key: '1',
     name: 'udacicards',
-    cards: [1,2,3],
+    cards: [
+      {
+        question: 'How much is 1 + 1?',
+        answer: '2',
+      },
+      {
+        question: 'How much is 2 + 3?',
+        answer: '5',
+      }
+    ],
   },
   {
     key: '2',

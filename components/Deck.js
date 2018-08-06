@@ -13,8 +13,16 @@ class Deck extends React.Component {
     deckName: ''
   }
 
+  onAddCard = () => {}
+
+  onStartQuiz = () => {
+    const deck = this.props.navigation.getParam('deck')
+    this.props.navigation.navigate('Quiz', {deck})
+  }
+
   render() {
     const deck = this.props.navigation.getParam('deck')
+    const quizDisabled = deck.cards.length === 0
     return (
       <View style={styles.container}>
         <View style={styles.labelContainer}>
@@ -22,13 +30,20 @@ class Deck extends React.Component {
           <Text style={styles.deckSubtitle}>{deck.cards.length} cards</Text>
         </View>
 
-        <TouchableOpacity style={[styles.btn, styles.btnSecondary]}>
+        <TouchableOpacity
+          style={[styles.btn, styles.btnSecondary]}
+          onPress={this.onAddCard}
+        >
           <Text style={[styles.btnText, styles.btnSecondaryText]}>
             Add Card
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.btn, styles.btnPrimary]}>
-          <Text style={[styles.btnText, styles.btnPrimaryText]}>
+        <TouchableOpacity
+          style={[styles.btn, quizDisabled ? styles.btnDisabled : styles.btnPrimary]}
+          onPress={this.onStartQuiz}
+          disabled={quizDisabled}
+        >
+          <Text style={[styles.btnText, quizDisabled ? styles.btnDisabledText : styles.btnPrimaryText]}>
             Start Quiz
           </Text>
         </TouchableOpacity>
@@ -91,6 +106,12 @@ const styles = StyleSheet.create({
   },
   btnSecondaryText: {
     color: 'black',
+  },
+  btnDisabled: {
+    backgroundColor: 'lightgrey',
+  },
+  btnDisabledText: {
+    color: 'white',
   },
 })
 
