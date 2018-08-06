@@ -1,5 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity
+} from 'react-native'
+import { addCard } from '../actions'
 
 class EditCard extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -12,6 +20,14 @@ class EditCard extends React.Component {
   state = {
     question: '',
     answer: ''
+  }
+
+  onSave = () => {
+    const deck = this.props.navigation.getParam('deck')
+    const { addCard, navigation } = this.props
+    const { question, answer } = this.state
+    addCard(question, answer, deck.id)
+      .then(() => navigation.popToTop())
   }
 
   render() {
@@ -33,7 +49,10 @@ class EditCard extends React.Component {
             style={styles.input}
           />
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={this.onSave}
+          >
             <Text style={styles.btnText}> Save</Text>
           </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -78,4 +97,12 @@ const styles = StyleSheet.create({
   },
 })
 
-export default EditCard
+
+const mapDispatchToProps = dispatch => ({
+  addCard: (question, answer, deckId) => dispatch(addCard(question, answer, deckId)),
+})
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(EditCard)

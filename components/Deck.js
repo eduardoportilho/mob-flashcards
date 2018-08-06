@@ -14,7 +14,8 @@ class Deck extends React.Component {
   }
 
   onAddCard = () => {
-    this.props.navigation.navigate('EditCard')
+    const deck = this.props.navigation.getParam('deck')
+    this.props.navigation.navigate('EditCard', { deck })
   }
 
   onStartQuiz = () => {

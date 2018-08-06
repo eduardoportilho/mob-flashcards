@@ -9,11 +9,20 @@ function recieveDecks(decks) {
   }
 }
 
-export const DECK_SAVED = "DECK_SAVED"
-function deckSaved(deck) {
+export const DECK_ADDED = "DECK_ADDED"
+function deckAdded(deck) {
   return {
-    type: DECK_SAVED,
+    type: DECK_ADDED,
     deck
+  }
+}
+
+export const CARD_ADDED = "CARD_ADDED"
+function cardAdded(deckId, card) {
+  return {
+    type: CARD_ADDED,
+    deckId, 
+    card,
   }
 }
 
@@ -25,11 +34,27 @@ export const fetchDecks = () => dispatch => {
 export const addDeck = (name) => dispatch => {
   const deck = {
     key: uuidv1(),
-    name: name,
+    name,
     cards: [],
   }
   return getDecks()
     .then(decks => [...decks, deck])
     .then(decks => saveDecks(decks))
-    .then(() => dispatch(deckSaved(deck)))
+    .then(() => dispatch(deckAdded(deck)))
+}
+
+export const addCard = (question, answer, deckId) => dispatch => {
+  const card = {
+    question,
+    answer,
+  }
+  return getDecks()
+    .then(decks => decks.map(deck => (
+      deck.id === deckId ? {
+        ...deck,
+        cards: [...deck.cards, card]
+      } : deck
+    )))
+    .then(decks => saveDecks(decks))
+    .then(() => dispatch(cardAdded(deckId, card)))
 }

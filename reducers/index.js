@@ -1,6 +1,7 @@
 import {
   RECEIVE_DECKS,
-  DECK_SAVED,
+  DECK_ADDED,
+  CARD_ADDED,
 } from '../actions'
 
 function decks (state = {
@@ -11,9 +12,17 @@ function decks (state = {
       return {
         decks: action.decks,
       }
-    case DECK_SAVED:
+    case DECK_ADDED:
       return {
         decks: [...state.decks, action.deck],
+      }
+    case CARD_ADDED:
+      return {
+        decks: state.decks.map(deck => 
+          deck.id === action.deckId ? {
+            ...deck,
+            cards: [...deck.cards, action.card]
+          } : deck)
       }
     default :
       return state
