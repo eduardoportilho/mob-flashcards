@@ -22,7 +22,7 @@ export const fetchDecks = () => dispatch => {
     .then(decks => dispatch(recieveDecks(decks)))
 }
 
-export const saveDeck = (name) => dispatch => {
+export const addDeck = (name) => dispatch => {
   const deck = {
     key: uuidv1(),
     name: name,

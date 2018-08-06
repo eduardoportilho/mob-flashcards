@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity
 } from 'react-native'
-import { saveDeck } from '../actions'
+import { addDeck } from '../actions'
 
 class EditDeck extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,9 +22,9 @@ class EditDeck extends React.Component {
   }
 
   onSave = () => {
-    const { saveDeck, navigation } = this.props
+    const { addDeck, navigation } = this.props
     const { deckName } = this.state
-    saveDeck(deckName)
+    addDeck(deckName)
       .then(() => navigation.popToTop())
   }
 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => ({
-  saveDeck: (name) => dispatch(saveDeck(name)),
+  addDeck: (name) => dispatch(addDeck(name)),
 })
 
 export default connect(
