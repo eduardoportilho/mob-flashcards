@@ -24,25 +24,32 @@ class DeckList extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Decks',
     headerRight: (
-      <TouchableOpacity style={{paddingRight: 20}}>
+      <TouchableOpacity
+        style={{paddingRight: 20}}
+        onPress={() => navigation.navigate('EditDeck')}
+      >
         <Ionicons 
           name='ios-add'
-          size={30}
-          onPress={() => navigation.navigate('EditDeck')}/>
+          size={30}/>
       </TouchableOpacity>
     )
   })
 
   render() {
+    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <FlatList
           data={decks}
           renderItem={({item}) => (
-            <View style={styles.deckItemWrapper}>
-              <Text style={styles.deckItemTitle}>{item.name}</Text>
-              <Text style={styles.deckItemSubtitle}>{item.cards.length} cards</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Deck', {deck: item})}
+            >
+              <View style={styles.deckItemWrapper}>
+                <Text style={styles.deckItemTitle}>{item.name}</Text>
+                <Text style={styles.deckItemSubtitle}>{item.cards.length} cards</Text>
+              </View>
+            </TouchableOpacity>
           )}
         />
       </View>
