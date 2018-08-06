@@ -1,5 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import { 
+  StyleSheet,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity
+} from 'react-native'
+import { saveDeck } from '../actions'
 
 class EditDeck extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -13,6 +21,13 @@ class EditDeck extends React.Component {
     deckName: ''
   }
 
+  onSave = () => {
+    const { saveDeck, navigation } = this.props
+    const { deckName } = this.state
+    saveDeck(deckName)
+      .then(() => navigation.popToTop())
+  }
+
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
@@ -23,8 +38,13 @@ class EditDeck extends React.Component {
             value={this.state.deckName}
             style={styles.input}
           />
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.btnText}> Save</Text>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={this.onSave}
+          >
+            <Text style={styles.btnText}>
+              Save
+            </Text>
           </TouchableOpacity>
       </KeyboardAvoidingView>
     )
@@ -68,4 +88,11 @@ const styles = StyleSheet.create({
   },
 })
 
-export default EditDeck
+const mapDispatchToProps = dispatch => ({
+  saveDeck: (name) => dispatch(saveDeck(name)),
+})
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(EditDeck)

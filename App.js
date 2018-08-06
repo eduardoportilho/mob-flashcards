@@ -1,6 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
+import { Provider } from 'react-redux'
 import { createStackNavigator } from 'react-navigation'
+import store from './store'
 import DeckList from './components/DeckList'
 import EditDeck from './components/EditDeck'
 import EditCard from './components/EditCard'
@@ -29,9 +31,11 @@ const RootStack = createStackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <RootStack />
-      </View>
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <RootStack />
+        </View>
+      </Provider>
     )
   }
 }

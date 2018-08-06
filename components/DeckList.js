@@ -1,33 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons'
-
-const decks = [
-  {
-    key: '1',
-    name: 'udacicards',
-    cards: [
-      {
-        question: 'How much is 1 + 1?',
-        answer: '2',
-      },
-      {
-        question: 'How much is 2 + 3?',
-        answer: '5',
-      }
-    ],
-  },
-  {
-    key: '2',
-    name: 'new deck',
-    cards: [],
-  },
-  {
-    key: '3',
-    name: 'new deck 2',
-    cards: [],
-  },
-]
+import { AppLoading} from 'expo'
+import { fetchDecks } from '../actions'
 
 class DeckList extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -44,8 +20,17 @@ class DeckList extends React.Component {
     )
   })
 
+  componentDidMount() {
+    this.props.fetchDecks()
+  }
+
   render() {
-    const { navigation } = this.props
+    const { navigation, decks } = this.props
+
+    if (!decks) {
+      return <AppLoading />
+    }
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -87,4 +72,17 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DeckList
+function mapStateToProps ({ decks }) {
+  return {
+    decks,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchDecks: () => dispatch(fetchDecks()),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DeckList)
