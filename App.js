@@ -1,23 +1,24 @@
-import React from 'react';
-import { StyleSheet, StatusBar, View } from 'react-native';
+import React from 'react'
+import { createStackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
-import { Constants } from 'expo'
+import DeckDetails from './components/DeckDetails'
 
-function AppStatusBar (props) {
-  return (
-    <View style={{ height: Constants.statusBarHeight }}>
-      <StatusBar translucent {...props} />
-    </View>
-  )
-}
+
+const RootStack = createStackNavigator({
+  Home: {
+    screen: DeckList,
+  },
+  DeckDetails: {
+    screen: DeckDetails,
+  },
+})
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <AppStatusBar />
-        <DeckList />
+        <RootStack />
       </View>
-    );
+    )
   }
 }
