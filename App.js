@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import EditDeck from './components/EditDeck'
+import EditCard from './components/EditCard'
 import Deck from './components/Deck'
 import Quiz from './components/Quiz'
 
@@ -13,6 +14,9 @@ const RootStack = createStackNavigator({
   },
   EditDeck: {
     screen: EditDeck,
+  },
+  EditCard: {
+    screen: EditCard,
   },
   Deck: {
     screen: Deck,
