@@ -18,7 +18,7 @@ class EditDeck extends React.Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <Text style={styles.label}> What is the title of your new deck?</Text>
           <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            style={styles.input}
             onChangeText={(deckName) => this.setState({deckName})}
             value={this.state.deckName}
             style={styles.input}
@@ -34,12 +34,15 @@ class EditDeck extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     padding: 20,
   },
   label: {
-    fontSize: 22,
-    marginBottom: 10,
+    fontSize: 36,
+    marginTop: 20,
+    marginBottom: 20,
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   input: {
     borderColor: 'grey',
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 32,
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   btn: {
     backgroundColor: 'green',
