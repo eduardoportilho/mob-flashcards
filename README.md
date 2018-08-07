@@ -1,5 +1,9 @@
 # Mobile Flashcards
 
+<a href="https://expo.io/@eduardoportilho/mobile-flashcards">
+    <img class="badge-img" src="https://img.shields.io/badge/Expo-1.0-blue.svg?longCache=true" alt="App on Expo.io">
+</a>
+
 Mobile application that allows users to study collections of flashcards. The app allow users to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks.
 
 The app has been tested on iOS devices only.
