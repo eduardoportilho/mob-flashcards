@@ -25,7 +25,9 @@ class EditDeck extends React.Component {
     const { addDeck, navigation } = this.props
     const { deckName } = this.state
     addDeck(deckName)
-      .then(() => navigation.popToTop())
+      .then(({ deck }) => {
+        navigation.replace('Deck', { deck })
+      })
   }
 
   render() {
@@ -46,7 +48,7 @@ class EditDeck extends React.Component {
             disabled={saveDisabled}
           >
             <Text style={styles.btnText}>
-              Save
+              Create Deck
             </Text>
           </TouchableOpacity>
       </KeyboardAvoidingView>
