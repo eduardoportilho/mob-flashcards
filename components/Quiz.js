@@ -72,7 +72,7 @@ class Quiz extends React.Component {
               onPress={this.toggleQuestionAnswer}
             >
               <Text style={styles.linkBtnText}>
-                Answer
+                Show Answer
               </Text>
             </TouchableOpacity>
           </View>
@@ -86,7 +86,7 @@ class Quiz extends React.Component {
               onPress={this.toggleQuestionAnswer}
             >
               <Text style={styles.linkBtnText}>
-                Question
+                Show Question
               </Text>
             </TouchableOpacity>
           </View>

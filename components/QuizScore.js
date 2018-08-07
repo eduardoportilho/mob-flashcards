@@ -12,8 +12,8 @@ class QuizScore extends React.Component {
     this.props.navigation.replace('Quiz', {deck})
   }
 
-  onGoHome = () => {
-    this.props.navigation.popToTop()
+  onBackToDeck = () => {
+    this.props.navigation.goBack()
   }
 
   render() {
@@ -36,10 +36,10 @@ class QuizScore extends React.Component {
 
         <TouchableOpacity
           style={[styles.btn, styles.btnSecondary]}
-          onPress={this.onGoHome}
+          onPress={this.onBackToDeck}
         >
           <Text style={[styles.btnText, styles.btnSecondaryText]}>
-            Home
+            Back to Deck
           </Text>
         </TouchableOpacity>
       </View>
