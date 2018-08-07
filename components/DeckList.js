@@ -33,19 +33,31 @@ class DeckList extends React.Component {
 
     return (
       <View style={styles.container}>
-        <FlatList
-          data={decks}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Deck', {deck: item})}
-            >
-              <View style={styles.deckItemWrapper}>
-                <Text style={styles.deckItemTitle}>{item.name}</Text>
-                <Text style={styles.deckItemSubtitle}>{item.cards.length} cards</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+        { decks.length === 0 ? (
+          <View style={styles.innerContainer}>
+            <Text style={styles.label}>No decks yet...</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('EditDeck')}
+                style={styles.btn}
+              >
+                <Text style={styles.btnText}>Create One</Text>
+              </TouchableOpacity>
+          </View>
+        ) : (
+          <FlatList
+            data={decks}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Deck', {deck: item})}
+              >
+                <View style={styles.deckItemWrapper}>
+                  <Text style={styles.deckItemTitle}>{item.name}</Text>
+                  <Text style={styles.deckItemSubtitle}>{item.cards.length} cards</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </View>
     )
   }
@@ -54,6 +66,29 @@ class DeckList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  label: {
+    fontSize: 40,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  btn: {
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
+    marginBottom: 10,
+    backgroundColor: 'blue',
+  },
+  btnText: {
+    fontSize: 22,
+    textAlign: 'center',
+    color: 'white',
   },
   deckItemWrapper: {
     flex: 1,
