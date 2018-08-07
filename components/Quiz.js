@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { setLocalNotification, clearLocalNotification } from '../utils/localNotifications'
 
 class Quiz extends React.Component {
   static navigationOptions = () => {
@@ -33,19 +34,30 @@ class Quiz extends React.Component {
 
   moveToNextQuestion = () => {
     const deck = this.props.navigation.getParam('deck')
-    const { questionIndex, correctAnswerCount } = this.state
+    const { questionIndex } = this.state
     if (questionIndex < deck.cards.length - 1) {
       this.setState(state => ({
         questionIndex: state.questionIndex + 1,
       }))
     } else {
-      this.props.navigation.replace('QuizScore', {
-        score: {
-          percent: Math.round(correctAnswerCount * 100 / deck.cards.length),
-          deck
-        }
-      })
+      this.finishQuizAndShowScore()
     }
+  }
+
+  finishQuizAndShowScore = () => {
+    const deck = this.props.navigation.getParam('deck')
+    const { correctAnswerCount } = this.state
+
+    // Study for the day done, postpone notification for tomorrow
+    clearLocalNotification()
+      .then(setLocalNotification)
+
+    this.props.navigation.replace('QuizScore', {
+      score: {
+        percent: Math.round(correctAnswerCount * 100 / deck.cards.length),
+        deck
+      }
+    })
   }
 
   render() {

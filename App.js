@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStackNavigator } from 'react-navigation'
 import store from './store'
+import { setLocalNotification } from './utils/localNotifications'
 import DeckList from './components/DeckList'
 import EditDeck from './components/EditDeck'
 import EditCard from './components/EditCard'
@@ -35,6 +36,11 @@ const RootStack = createStackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    // Schedule a study notification for tomorrow (if there is none)
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>
