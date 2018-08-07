@@ -1,5 +1,11 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "Mobile Flashcards",
+    "slug": "mobile-flashcards",
+    "sdkVersion": "27.0.0",
+    "version": "1.0",
+    "orientation": "portrait",
+    "privacy": "public",
+    "githubUrl": "https://github.com/eduardoportilho/mob-flashcards"
   }
 }
