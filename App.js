@@ -29,6 +29,9 @@ const RootStack = createStackNavigator({
   QuizScore: {
     screen: QuizScore,
   },
+},
+{
+  initialRouteName: 'Home',
 })
 
 export default class App extends React.Component {
