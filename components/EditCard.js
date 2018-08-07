@@ -31,6 +31,10 @@ class EditCard extends React.Component {
   }
 
   render() {
+    const { question, answer } = this.state
+    const saveDisabled = !question || !answer ||
+      question.trim().length === 0 ||
+      answer.trim().length === 0
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <Text style={styles.label}>Question:</Text>
@@ -50,8 +54,9 @@ class EditCard extends React.Component {
           />
 
           <TouchableOpacity
-            style={styles.btn}
+            style={[styles.btn, saveDisabled ? styles.btnDisabled : styles.btnEnabled]}
             onPress={this.onSave}
+            disabled={saveDisabled}
           >
             <Text style={styles.btnText}> Save</Text>
           </TouchableOpacity>
@@ -83,12 +88,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   btn: {
-    backgroundColor: 'green',
     padding: 10,
     borderRadius: 7,
     height: 45,
     marginLeft: 40,
     marginRight: 40,
+  },
+  btnEnabled: {
+    backgroundColor: 'green',
+  },
+  btnDisabled: {
+    backgroundColor: 'darkseagreen',
   },
   btnText: {
     color: 'white',

@@ -29,6 +29,8 @@ class EditDeck extends React.Component {
   }
 
   render() {
+    const { deckName } = this.state
+    const saveDisabled = !deckName || deckName.trim().length === 0
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <Text style={styles.label}> What is the title of your new deck?</Text>
@@ -39,8 +41,9 @@ class EditDeck extends React.Component {
             style={styles.input}
           />
           <TouchableOpacity
-            style={styles.btn}
+            style={[styles.btn, saveDisabled ? styles.btnDisabled : styles.btnEnabled]}
             onPress={this.onSave}
+            disabled={saveDisabled}
           >
             <Text style={styles.btnText}>
               Save
@@ -74,12 +77,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   btn: {
-    backgroundColor: 'green',
     padding: 10,
     borderRadius: 7,
     height: 45,
     marginLeft: 40,
     marginRight: 40,
+  },
+  btnEnabled: {
+    backgroundColor: 'green',
+  },
+  btnDisabled: {
+    backgroundColor: 'darkseagreen',
   },
   btnText: {
     color: 'white',
