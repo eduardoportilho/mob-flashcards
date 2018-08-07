@@ -8,7 +8,7 @@ import EditDeck from './components/EditDeck'
 import EditCard from './components/EditCard'
 import Deck from './components/Deck'
 import Quiz from './components/Quiz'
-
+import QuizScore from './components/QuizScore'
 
 const RootStack = createStackNavigator({
   Home: {
@@ -25,6 +25,9 @@ const RootStack = createStackNavigator({
   },
   Quiz: {
     screen: Quiz,
+  },
+  QuizScore: {
+    screen: QuizScore,
   },
 })
 

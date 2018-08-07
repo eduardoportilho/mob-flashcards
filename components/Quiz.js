@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 class Quiz extends React.Component {
   static navigationOptions = () => {
@@ -10,6 +10,7 @@ class Quiz extends React.Component {
 
   state = {
     questionIndex: 0,
+    correctAnswerCount: 0,
     isQuestionShowing: true
   }
 
@@ -20,22 +21,30 @@ class Quiz extends React.Component {
   }
 
   onCorrectPress = () => {
-    const deck = this.props.navigation.getParam('deck')
-    const { questionIndex } = this.state
-    if (questionIndex < deck.cards.length - 1) {
-      this.setState(state => ({
-        questionIndex: state.questionIndex + 1,
-      }))
-    }
+    this.setState(state => ({
+      correctAnswerCount: state.correctAnswerCount + 1,
+    }), () => {
+      this.moveToNextQuestion()
+    })
+  }
+  onIncorrectPress = () => {
+    this.moveToNextQuestion()
   }
 
-  onIncorrectPress = () => {
+  moveToNextQuestion = () => {
     const deck = this.props.navigation.getParam('deck')
-    const { questionIndex } = this.state
+    const { questionIndex, correctAnswerCount } = this.state
     if (questionIndex < deck.cards.length - 1) {
       this.setState(state => ({
         questionIndex: state.questionIndex + 1,
       }))
+    } else {
+      this.props.navigation.replace('QuizScore', {
+        score: {
+          percent: Math.round(correctAnswerCount * 100 / deck.cards.length),
+          deck
+        }
+      })
     }
   }
 
@@ -85,7 +94,7 @@ class Quiz extends React.Component {
 
         <View style={styles.btnContainer}>
           <TouchableOpacity
-            style={[styles.btn, styles.btnSecondary]}
+            style={[styles.btn, styles.btnPrimary]}
             onPress={this.onCorrectPress}
           >
             <Text style={styles.btnText}>
@@ -93,7 +102,7 @@ class Quiz extends React.Component {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.btn, styles.btnPrimary]}
+            style={[styles.btn, styles.btnSecondary]}
             onPress={this.onIncorrectPress}
           >
             <Text style={styles.btnText}>
