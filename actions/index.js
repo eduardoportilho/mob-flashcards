@@ -33,7 +33,7 @@ export const fetchDecks = () => dispatch => {
 
 export const addDeck = (name) => dispatch => {
   const deck = {
-    key: uuidv1(),
+    id: uuidv1(),
     name,
     cards: [],
   }

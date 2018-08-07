@@ -1,5 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import { AppLoading} from 'expo'
+import { fetchDecks } from '../actions'
 
 class Deck extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -9,22 +12,35 @@ class Deck extends React.Component {
     }
   }
 
-  state = {
-    deckName: ''
+  componentDidMount() {
+    this.props.fetchDecks()
+  }
+
+  getDeck = () => {
+    const { navigation, decks } = this.props
+    const deckFromParams = navigation.getParam('deck')
+    return decks.find(deck => deck.id === deckFromParams.id)
   }
 
   onAddCard = () => {
-    const deck = this.props.navigation.getParam('deck')
+    const deck = this.getDeck()
     this.props.navigation.navigate('EditCard', { deck })
   }
 
   onStartQuiz = () => {
-    const deck = this.props.navigation.getParam('deck')
+    const deck = this.getDeck()
     this.props.navigation.navigate('Quiz', {deck})
   }
 
   render() {
-    const deck = this.props.navigation.getParam('deck')
+    const { decks } = this.props
+
+    if (!decks) {
+      return <AppLoading />
+    }
+
+    const deck = this.getDeck()
+
     const quizDisabled = deck.cards.length === 0
     return (
       <View style={styles.container}>
@@ -118,4 +134,17 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Deck
+function mapStateToProps ({ decks }) {
+  return {
+    decks,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchDecks: () => dispatch(fetchDecks()),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Deck)

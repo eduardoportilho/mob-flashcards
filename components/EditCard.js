@@ -27,7 +27,7 @@ class EditCard extends React.Component {
     const { addCard, navigation } = this.props
     const { question, answer } = this.state
     addCard(question, answer, deck.id)
-      .then(() => navigation.popToTop())
+      .then(() => navigation.goBack())
   }
 
   render() {

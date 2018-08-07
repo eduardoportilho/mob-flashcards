@@ -46,13 +46,16 @@ class DeckList extends React.Component {
         ) : (
           <FlatList
             data={decks}
-            renderItem={({item}) => (
+            keyExtractor={deck => {
+              return deck.id
+            }}
+            renderItem={({item: deck}) => (
               <TouchableOpacity
-                onPress={() => navigation.navigate('Deck', {deck: item})}
+                onPress={() => navigation.navigate('Deck', { deck })}
               >
                 <View style={styles.deckItemWrapper}>
-                  <Text style={styles.deckItemTitle}>{item.name}</Text>
-                  <Text style={styles.deckItemSubtitle}>{item.cards.length} cards</Text>
+                  <Text style={styles.deckItemTitle}>{deck.name}</Text>
+                  <Text style={styles.deckItemSubtitle}>{deck.cards.length} cards</Text>
                 </View>
               </TouchableOpacity>
             )}
